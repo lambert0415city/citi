@@ -12,9 +12,11 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class Query implements GraphQLQueryResolver {
+
     public User getUser(){
         return new User(1,"张三");
     }
+
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
         users.add(new User(1,"张三"));

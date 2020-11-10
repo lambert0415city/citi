@@ -4,6 +4,26 @@ type Query{
     user: User
 }
 
+type Mutation {
+    addmsg(input1: String,input2: String): Result
+    addUser(input: UserInput): [User]
+}
+
+input UserInput{
+   id: Int
+   name: String
+}
+
+type Result{
+    msg: String
+    code: Int
+}
+
+type Msg{
+    input1: String
+    input2: String
+}
+
 type User{
     id: Int
     name: String
