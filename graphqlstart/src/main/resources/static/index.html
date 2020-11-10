@@ -15,20 +15,28 @@
         // });
 
         function testmsg(){
-            alert("test");
+            var input1 = $("#input1").val();
+            var input2 = $("#input2").val();
+
             var param = {};
-            param.input1 = $("#input1").val().trim();
-            param.input2 = $("#input2").val().trim();
+            param.input1 = input1;
+            param.input2 = input2;
+
 
             $.ajax({
                 url:"../testmsg",
-                type:"post",
+                type:'post',
                 data:param,
-                dataType:"json",
+                dataType:'json',
                 success:function(result){
-                    alert(JSON.stringify(result));
+                    //alert(JSON.stringify(result));
                     // layer.msg(result.data);
-                    $("#result").append("<span>"+(result.msg)+"</span>")
+                    $("#result").html("");
+                    if(result.code == 200){
+                        $("#result").append("<p>"+(result.msg)+"</p>")
+                    }
+
+
                 },
                 error:function () {
                     alert("error");
@@ -40,11 +48,11 @@
 </head>
 <body>
 <p>input1:<input type="text" id = "input1" ></p>
-<p>input2:<input type="text" id = "inptu2" ></p>
+<p>input2:<input type="text" id = "input2" ></p>
 
 
 <input type="button" value ="click" id = "btnBack" onclick='javascript:testmsg()'>
-result:<p id = "result"></p>
+<p id = "result">result:</p>
 </body>
 </html>
 

@@ -38,10 +38,10 @@ public class MutationResolver implements GraphQLQueryResolver, GraphQLMutationRe
         if(EmptyUtils.isNotEmpty(msg)){
             if(StringUtils.isNumeric(msg.getInput1()) && StringUtils.isNumeric(msg.getInput2())){
                 int result = Integer.parseInt(msg.getInput1()) + Integer.parseInt(msg.getInput2());
-                return new Result("interger add: now" + now, result);
+                return new Result(String.valueOf(result)+" time: " + now, 200);
             }else{
                 String result = msg.getInput1() + msg.getInput2();
-                return new Result(result + " time:"+now,200);
+                return new Result(result + " time: "+now,200);
             }
         }
 
