@@ -5,7 +5,7 @@ type Query{
 }
 
 type Mutation {
-    addmsg(input1: String,input2: String): Result
+    addmsg(input: Msg): Result
     addUser(input: UserInput): [User]
 }
 
@@ -19,7 +19,7 @@ type Result{
     code: Int
 }
 
-type Msg{
+input Msg{
     input1: String
     input2: String
 }

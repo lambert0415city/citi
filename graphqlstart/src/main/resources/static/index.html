@@ -3,8 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+
+    <script type="text/javascript">
+
+        // $(function(){
+        //     $("#name").html(userName);
+        //     selfgroups();
+        //     checkmessages();
+        // });
+
+        function testmsg(){
+            alert("test");
+            var param = {};
+            param.input1 = $("#input1").val().trim();
+            param.input2 = $("#input2").val().trim();
+
+            $.ajax({
+                url:"../testmsg",
+                type:"post",
+                data:param,
+                dataType:"json",
+                success:function(result){
+                    alert(JSON.stringify(result));
+                    // layer.msg(result.data);
+                    $("#result").append("<span>"+(result.msg)+"</span>")
+                },
+                error:function () {
+                    alert("error");
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
-    test
+<p>input1:<input type="text" id = "input1" ></p>
+<p>input2:<input type="text" id = "inptu2" ></p>
+
+
+<input type="button" value ="click" id = "btnBack" onclick='javascript:testmsg()'>
+result:<p id = "result"></p>
 </body>
 </html>
+
+
+<!--query users{-->
+<!--users{-->
+<!--id-->
+<!--name-->
+<!--}-->
+<!--}-->
+
+<!--mutation addmsg($input: Msg){-->
+<!--addmsg(input: $input){-->
+<!--msg-->
+<!--code-->
+<!--}-->
+<!--}-->
+
+<!--mutation addUser($user: UserInput){-->
+<!--addUser(input: $user){-->
+<!--id-->
+<!--name-->
+<!--}-->
+<!--}-->
+
+<!--{-->
+<!--"input": {-->
+<!--"input1": "2",-->
+<!--"input2": "3"-->
+<!--}-->
+<!--}-->

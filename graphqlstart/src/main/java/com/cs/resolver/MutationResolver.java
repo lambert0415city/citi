@@ -1,8 +1,10 @@
 package com.cs.resolver;
 
+import com.cs.entity.Msg;
 import com.cs.entity.Result;
 import com.cs.entity.User;
 import com.cs.entity.UserInput;
+import com.cs.util.DateUtil;
 import com.cs.util.EmptyUtils;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Component;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,18 +28,20 @@ import java.util.List;
 public class MutationResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
     private static final Logger logger = LogManager.getLogger(MutationResolver.class);
 
-    public Result addmsg(String input1, String input2) {
+    public Result addmsg(Msg msg) throws ParseException {
         logger.info("Mutation Resolver ==> addMsg");
-        logger.info("params: input1:{}, input2:{}, password:{}, description:{}",
-                input1, input2);
+        logger.info("params: input1:{}, input2:{}",
+                msg.getInput1(), msg.getInput2());
 
-        if(EmptyUtils.isNotEmpty(input1) && EmptyUtils.isNotEmpty(input2)){
-            if(StringUtils.isNumeric(input1) && StringUtils.isNumeric(input2)){
-                int result = Integer.parseInt(input1) + Integer.parseInt(input2);
-                return new Result("interger add",result);
+        String now = DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
+
+        if(EmptyUtils.isNotEmpty(msg)){
+            if(StringUtils.isNumeric(msg.getInput1()) && StringUtils.isNumeric(msg.getInput2())){
+                int result = Integer.parseInt(msg.getInput1()) + Integer.parseInt(msg.getInput2());
+                return new Result("interger add: now" + now, result);
             }else{
-                String result = input1 + input2;
-                return new Result(result,200);
+                String result = msg.getInput1() + msg.getInput2();
+                return new Result(result + " time:"+now,200);
             }
         }
 
