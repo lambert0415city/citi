@@ -184,6 +184,11 @@ REDHAT_SUPPORT_PRODUCT_VERSION="7"
  卸载与安装
 
 ```shell
+#yum 安装gcc相关环境
+yum -y install gcc
+yum -y install gcc-c++
+
+
 #1.卸载旧版本
 yum remove docker \
                   docker-client \
@@ -2463,13 +2468,79 @@ $ docker build -t xxxxx:xx  .
 
 # 1、Docker基础回顾
 
+安装笔记
+
 https://blog.csdn.net/weixin_43746433/article/details/106174411
+
+
+
+狂神1/2笔记
+
+https://blog.csdn.net/weixin_43691773/article/details/109352522?utm_medium=distribute.pc_relevant.none-task-blog-OPENSEARCH-6.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-6.control
+
+
+
+
+
+
 
 # 2、Docker-Compose介绍
 
 [docker compose简单的介绍与flask部署](https://blog.csdn.net/weixin_43746433/article/details/106920780)
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200725172926324.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzc0NjQzMw==,size_16,color_FFFFFF,t_70)
+
+```java
+#官方下载
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+#授权
+chmod +x /usr/local/bin/docker-compose
+# 加速下载
+curl -L https://get.daocloud.io/docker/compose/releases/download/1.26.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+#授权
+chmod +x /usr/local/bin/docker-compose
+```
+
+官网
+
+https://docs.docker.com/compose/gettingstarted/
+
+Create a directory for the project:
+
+```
+$ mkdir composetest
+$ cd composetest
+```
+
+Create a file called `app.py` in your project directory and paste this in:
+
+```python
+import time
+
+import redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr('hits')
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+@app.route('/')
+def hello():
+    count = get_hit_count()
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+```
+
+
 
 ## yaml 规则
 
