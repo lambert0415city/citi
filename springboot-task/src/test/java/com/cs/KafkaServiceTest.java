@@ -32,11 +32,16 @@ class KafkaServiceTest {
     @Resource
     private KafkaTemplate<String,String> kafkaTemplate;
 
+
     @Test
     @Scheduled(cron = "0/2 * * * * ?")
     void send() {
         kafkaTemplate.send("mq","testsend");
     }
+
+//    bin/kafka-console-producer.sh --broker-list 10.16.90.187:9092 --topic mq
+//
+//    bin/kafka-console-consumer.sh --bootstrap-server 10.16.90.187:9092 --topic mq --from-beginning
 
 //    @Test
 //    @KafkaListener(topics = {"mq"},groupId = "0")
