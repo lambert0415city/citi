@@ -27,12 +27,19 @@ public class KafkaService {
         logger.info("sent messages to kafka");
     }
 
-    @KafkaListener(topics = {"mq"},groupId = "0")
-    public void acceptMQ(String message){
-        System.out.println("message:" + message);
+    // 简单消费监听
+    @KafkaListener(topics = {"topic1"})
+    public void onMessage1(ConsumerRecord<?, ?> record){
+        // 消费的哪个topic、partition的消息,打印出消息内容
+        System.out.println("简单消费："+record.topic()+"-"+record.partition()+"-"+record.value());
     }
 
-//    @KafkaListener(topics = {"${log.df-kafkaconsumer.topic}"})
+//    @KafkaListener(topics = {"topic1"},groupId = "0")
+//    public void acceptMQ(String message){
+//        System.out.println("message:" + message);
+//    }
+
+//    @KafkaListener(topics = {"${topic1}"})
 //    public void listen (ConsumerRecord<?, ?> record, Acknowledgment acknowledgment, Consumer<?, ?> consumer){
 //        try {
 //            String logStr = (String) record.value();

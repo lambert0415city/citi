@@ -36,24 +36,11 @@ class KafkaServiceTest {
     @Test
     @Scheduled(cron = "0/2 * * * * ?")
     void send() {
-        kafkaTemplate.send("mq","testsend");
+        kafkaTemplate.send("topic1","testsend1/11");
     }
 
-//    bin/kafka-console-producer.sh --broker-list 10.16.90.187:9092 --topic mq
-//
-//    bin/kafka-console-consumer.sh --bootstrap-server 10.16.90.187:9092 --topic mq --from-beginning
-
-//    @Test
-//    @KafkaListener(topics = {"mq"},groupId = "0")
-//    void acceptMQ(String message) {
-//        System.out.println("message:" + message);
-//    }
-
-    @Test
-    @Scheduled(cron = "0/2 * * * * ?")
-    void hello(){
-        System.out.println("hello.....");
-    }
+//    bin/kafka-console-producer.sh --broker-list 192.168.60.128:9092 --topic mq
+//    bin/kafka-console-consumer.sh --bootstrap-server 192.168.60.128:9092 --topic mq --from-beginning
 
 //    @Test
 //    @KafkaListener(topics = {"mq"})
